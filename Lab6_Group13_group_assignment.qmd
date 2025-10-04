@@ -1,0 +1,34 @@
+---
+title: "Lab  Assignment: Group 13"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+| Student ID | Name               |
+|------------|--------------------|
+| s253732    | Skumantz, Marcel   |
+| s253727    | Kalinowski, Elvin  |
+| s253726    | Lembeck, Joshua    |
+| s253718    | Kimpián, Ákos      |
+| s253702    | Amez, Mikel Garcia |
+
+## 1. Background
+
+## 2. Aim
+
+## 3. Load Libraries
+
+```{r, message=FALSE}
+library("tidyverse")
+library("pheatmap")
+library("broom")
+library("factoextra") # Need to check this is in the environment. Necesary for the extra tasks (PCA, KNN)
+```
+
+## 4. Load Data
+
+## 5. Data Description
+
+## 6. Analysis
