@@ -29,6 +29,85 @@ library("factoextra") # Need to check this is in the environment. Necesary for t
 
 ## 4. Load Data
 
+```{r}
+raw_dir <- "data/_raw/"
+data_file <- "gravier.RData"
+data_loc <- "https://github.com/ramhiser/datamicroarray/raw/master/data/"
+
+if( !dir.exists(raw_dir) ){
+  dir.create(path = raw_dir)
+}
+if( !file.exists(str_c(raw_dir, data_file)) ){
+  download.file(
+    url = str_c(data_loc, data_file),
+    destfile = str_c(raw_dir, data_file))
+}
+load(file = str_c(raw_dir, data_file))
+```
+
+```{r}
+gravier_clean <- gravier |>
+  bind_cols() |>
+  as_tibble()
+```
+
+```{r}
+gravier_clean_aug <- gravier_clean |>
+  mutate(y = case_when(y == "poor" ~ 1,
+                       y == "good" ~ 0)) |> 
+  relocate(early_metastasis = y)
+```
+
+
+#### T5: In your “Augment Data”-section, add a new chunk, where you write a tab-separated-values gzipped (i.e. compressed) file called “03_gravier_clean_aug” (with the correct file type specification) into your “data” folder
+
 ## 5. Data Description
 
 ## 6. Analysis
+
+
+#### T7: Use the lm() function to create your first model and save it to a new variable e.g. “my_first_model”
+
+
+#### T8: Use the `group_by()` 
+ `summarise()` workflow to calculate the mean values of the gene expression for your favourite gene stratified on `early_metastasis`
+ 
+ 
+ 
+#### T9: Create this long version of your `gravier_clean_aug` data and save it in `gravier_clean_aug_long` 
+ 
+ 
+
+#### T10: Create a dplyr pipeline, use the `group_by()` function to group your `gravier_clean_aug_long` dataset by gene and then add the `nest()` and `ungroup()` functions to your pipeline
+ 
+ 
+ 
+#### T11: Use the `group_by()` function to let R know, that we want to work per gene 
+
+
+#### T12: Then using the `map()`-function, add a new line to your pipeline, where you add a new variable `model_object` to your `gravier_clean_aug_long_nested` dataset, which `R` will compute per gene
+
+
+#### T13: Scroll a bit back to where we created the `model_object` and see if you can translate that into mapping the `tidy()` function to the `model_object` variable, thereby creating a new variable `model_object_tidy` - This is tricky, so do make sure to discuss in your group how this can be done!
+
+# Wrangling
+
+#### T14: Create a `dplyr` pipeline and save the result in a new variable called `gravier_estimates`: Use the `unnest()` function to unpack the `model_object_tidy`
+
+
+#### T15: The again, create a `dplyr` pipeline and save the result in a the same `gravier_estimates` variable: Subset the rows to only get the slope term and then choose variables as displayed below, finally end with un-grouping your data, as we no longer need the groups
+
+
+#### T16: To your `gravier_estimates` dataset, add a variable `q.value`, which is the result of calling the `p.adjust()` function on your `p.value` variable and also add an indicator variable denoting if a given gene is significant or not
+
+
+# GROUP ASSIGNMENT 
+
+For the group assignment this time, you will use T17 and T18 to again create a reproducible micro-report and make sure to:
+
+#### T17: Re-create this forest plot to finally reveal the results of your analysis *GROUP ASSIGNMENT* 
+
+
+#### T18: Re-create this volcano plot to finally reveal the results of your analysis *GROUP ASSIGNMENT part II*
+
+## Optional PCA, K-means (Mikel)
